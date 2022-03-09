@@ -6,25 +6,26 @@ import { BoardStatus } from "src/types/BoardStatus";
 
 type Props = {
   boardStatus: BoardStatus;
+  onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
 };
 
-export const Board: VFC<Props> = ({ boardStatus }) => {
+export const Board: VFC<Props> = ({ boardStatus, onClickSquare }) => {
   return (
     <table
       css={css`
         border-collapse: collapse;
-        background-color: lightgreen;
       `}
     >
       <tbody>
         {boardStatus.map((row, i) => {
           return (
-            <tr key={i + 1}>
+            <tr key={i}>
               {row.map((squareStatus, j) => {
                 return (
                   <Square
                     squareStatus={squareStatus}
-                    key={`${i + 1}-${j + 1}`}
+                    onClickSquare={() => onClickSquare(i, j)}
+                    key={`${i}-${j}`}
                   />
                 );
               })}

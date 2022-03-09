@@ -6,9 +6,14 @@ import { SquareStatus } from "src/types/SquareStatus";
 type Props = {
   squareStatus: SquareStatus;
   onClickSquare: () => void;
+  selectable: boolean;
 };
 
-export const Square: VFC<Props> = ({ squareStatus = "", onClickSquare }) => {
+export const Square: VFC<Props> = ({
+  squareStatus = "",
+  onClickSquare,
+  selectable,
+}) => {
   return (
     <td
       css={css`
@@ -20,7 +25,7 @@ export const Square: VFC<Props> = ({ squareStatus = "", onClickSquare }) => {
         ${squareStatus !== "" ? `color: ${squareStatus}` : ""};
         cursor: pointer;
         user-select: none;
-        background-color: lightgreen;
+        background-color: ${selectable ? "pink" : "lightgreen"};
         border: 1px solid #000000;
       `}
       onClick={() => onClickSquare()}

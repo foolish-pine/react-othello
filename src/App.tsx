@@ -1,5 +1,5 @@
 import { useState } from "react";
-import _, { max } from "lodash";
+import _ from "lodash";
 import { Board } from "src/components/Board";
 import { BoardStatus } from "./types/BoardStatus";
 
@@ -388,9 +388,34 @@ export const App = () => {
     changeCurrentPlayer();
   };
 
+  const selectableCell: number[][] = [];
+  boardStatus.forEach((row, i) =>
+    row.forEach((col, j) => {
+      if (
+        col === "" &&
+        (filterReversibleStonesLeft(i, j).length > 0 ||
+          filterReversibleStonesRight(i, j).length > 0 ||
+          filterReversibleStonesTop(i, j).length > 0 ||
+          filterReversibleStonesBottom(i, j).length > 0 ||
+          filterReversibleStonesTopRight(i, j).length > 0 ||
+          filterReversibleStonesBottomRight(i, j).length > 0 ||
+          filterReversibleStonesTopLeft(i, j).length > 0 ||
+          filterReversibleStonesBottomLeft(i, j).length > 0)
+      ) {
+        selectableCell.push([i, j]);
+      }
+    })
+  );
+  console.log(boardStatus);
+  console.log(selectableCell);
+
   return (
     <>
-      <Board boardStatus={boardStatus} onClickSquare={onClickSquare} />
+      <Board
+        boardStatus={boardStatus}
+        onClickSquare={onClickSquare}
+        selectableCells={selectableCell}
+      />
       <p>Current Player is {currentPlayer}</p>
     </>
   );

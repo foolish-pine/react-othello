@@ -57,7 +57,7 @@ export const App = () => {
     return reversibleStonesLeft;
   };
 
-  // 石が置かれたマスの右横を調査し、挟んだ相手の石の位置を配列に格納する
+  // 石が置かれたマスの右横を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesRight = (
     newStoneRow: number,
     newStoneCol: number
@@ -84,11 +84,11 @@ export const App = () => {
     return reversibleStonesRight;
   };
 
+  // 石が置かれたマスの上を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesTop = (
     newStoneRow: number,
     newStoneCol: number
   ) => {
-    // 石が置かれたマスの上を調査し、挟んだ相手の石の位置を配列に格納する
     const topStones = [];
     for (let i = 0; i < newStoneRow; i++) {
       topStones.push(boardStatus[i][newStoneCol]);
@@ -112,11 +112,11 @@ export const App = () => {
     return reversibleStonesTop;
   };
 
+  // 石が置かれたマスの下を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesBottom = (
     newStoneRow: number,
     newStoneCol: number
   ) => {
-    // 石が置かれたマスの下を調査し、挟んだ相手の石の位置を配列に格納する
     const bottomStones = [];
     for (let i = newStoneRow + 1; i < 8; i++) {
       bottomStones.push(boardStatus[i][newStoneCol]);
@@ -140,11 +140,11 @@ export const App = () => {
     return reversibleStonesBottom;
   };
 
+  // 石が置かれたマスの右上を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesTopRight = (
     newStoneRow: number,
     newStoneCol: number
   ) => {
-    // 石が置かれたマスの右上を調査し、挟んだ相手の石の位置を配列に格納する
     const topRightStones = [];
     if (newStoneRow + newStoneCol <= 6) {
       let col = newStoneCol + 1;
@@ -180,11 +180,11 @@ export const App = () => {
     return reversibleStonesTopRight;
   };
 
+  // 石が置かれたマスの右下を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesBottomRight = (
     newStoneRow: number,
     newStoneCol: number
   ) => {
-    // 石が置かれたマスの右下を調査し、挟んだ相手の石の位置を配列に格納する
     const bottomRightStones = [];
     if (newStoneRow < newStoneCol) {
       let row = newStoneRow + 1;
@@ -220,11 +220,11 @@ export const App = () => {
     return reversibleStonesUpRight;
   };
 
+  // 石が置かれたマスの左上を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesTopLeft = (
     newStoneRow: number,
     newStoneCol: number
   ) => {
-    // 石が置かれたマスの左上を調査し、挟んだ相手の石の位置を配列に格納する
     const topLeftStones = [];
     if (newStoneRow < newStoneCol) {
       let col = newStoneCol - 1;
@@ -260,11 +260,11 @@ export const App = () => {
     return reversibleStonesTopLeft;
   };
 
+  // 石が置かれたマスの左下を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesBottomLeft = (
     newStoneRow: number,
     newStoneCol: number
   ) => {
-    // 石が置かれたマスの左下を調査し、挟んだ相手の石の位置を配列に格納する
     const bottomLeftStones = [];
     if (newStoneRow + newStoneCol <= 6) {
       let row = newStoneRow + 1;
@@ -303,6 +303,7 @@ export const App = () => {
     return reversibleStonesBottomLeft;
   };
 
+  // 裏返し可能な石の位置の配列を返す
   const filterReversibleStones = (newStoneRow: number, newStoneCol: number) => {
     const reversibleStonesLeft = filterReversibleStonesLeft(
       newStoneRow,

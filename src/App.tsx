@@ -1,9 +1,9 @@
 import { useState } from "react";
 import _ from "lodash";
 import { Board } from "src/components/Board";
-import { BoardStatus } from "./types/BoardStatus";
-
-type CurrentPlayer = "white" | "black";
+import { CurrentPlayer } from "src/components/CurrentPlayer";
+import { BoardStatus } from "src/types/BoardStatus";
+import { Player } from "src/types/Player";
 
 export const App = () => {
   // ボードの初期表示
@@ -21,7 +21,7 @@ export const App = () => {
   const [boardStatus, setBoardStatus] = useState(initialBoardStatus);
 
   // 白を先行として、現在プレイ中のプレイヤーをステート化
-  const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayer>("white");
+  const [currentPlayer, setCurrentPlayer] = useState<Player>("white");
 
   // プレイ中のプレイヤーが白なら黒に、黒なら白にcurrentPlayerを変更する
   const changeCurrentPlayer = () => {
@@ -427,7 +427,7 @@ export const App = () => {
         onClickSquare={onClickSquare}
         squaresSelectableStatus={squaresSelectableStatus}
       />
-      <p>Current Player is {currentPlayer}</p>
+      <CurrentPlayer currentPlayer={currentPlayer} />
     </>
   );
 };

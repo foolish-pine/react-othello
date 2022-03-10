@@ -2,6 +2,7 @@ import { useState } from "react";
 import _ from "lodash";
 import { Board } from "src/components/Board";
 import { CurrentPlayer } from "src/components/CurrentPlayer";
+import { Score } from "src/components/Score";
 import { BoardStatus } from "src/types/BoardStatus";
 import { Player } from "src/types/Player";
 
@@ -428,6 +429,7 @@ export const App = () => {
         squaresSelectableStatus={squaresSelectableStatus}
       />
       <CurrentPlayer currentPlayer={currentPlayer} />
+      <Score boardStatus={boardStatus} />
     </>
   );
 };

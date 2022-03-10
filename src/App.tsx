@@ -279,7 +279,7 @@ export const App = () => {
     } else {
       let col = newStoneCol - 1;
       for (let i = newStoneRow + 1; i < 8; i++) {
-        bottomLeftStones.push(boardStatus[i][col++]);
+        bottomLeftStones.push(boardStatus[i][col--]);
       }
     }
 

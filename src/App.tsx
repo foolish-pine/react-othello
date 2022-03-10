@@ -375,6 +375,9 @@ export const App = () => {
     // クリックしたマスに既に石が置かれている場合は処理を中断する
     if (boardStatus[newStoneRow][newStoneCol]) return;
 
+    // クリックしたマスに石を置いても他の石を裏返せない場合、処理を中断する
+    if (!isReversibleStonesExist(newStoneRow, newStoneCol)) return;
+
     // クリックしたマスに新しい石を表示する
     const newBoardStatus = [...boardStatus];
     newBoardStatus[newStoneRow][newStoneCol] = currentPlayer;

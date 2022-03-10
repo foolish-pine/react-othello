@@ -425,6 +425,7 @@ export const App = () => {
     <>
       <Board
         boardStatus={boardStatus}
+        currentPlayer={currentPlayer}
         onClickSquare={onClickSquare}
         squaresSelectableStatus={squaresSelectableStatus}
       />

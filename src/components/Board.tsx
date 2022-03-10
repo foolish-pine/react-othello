@@ -3,15 +3,18 @@ import { css } from "@emotion/react";
 import { VFC } from "react";
 import { Square } from "src/components/Square";
 import { BoardStatus } from "src/types/BoardStatus";
+import { Player } from "src/types/Player";
 
 type Props = {
   boardStatus: BoardStatus;
+  currentPlayer: Player;
   onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
   squaresSelectableStatus: boolean[][];
 };
 
 export const Board: VFC<Props> = ({
   boardStatus,
+  currentPlayer,
   onClickSquare,
   squaresSelectableStatus,
 }) => {
@@ -43,6 +46,7 @@ export const Board: VFC<Props> = ({
                     squareStatus={squareStatus}
                     onClickSquare={() => onClickSquare(i, j)}
                     selectable={true}
+                    currentPlayer={currentPlayer}
                     key={`${i}-${j}`}
                   />
                 ) : (

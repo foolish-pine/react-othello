@@ -389,26 +389,31 @@ export const App = () => {
     changeCurrentPlayer();
   };
 
+  // 石の座標を引数に、その場所に石を置いたとき裏返し可能な石が存在するか判定する
+  const isReversibleStonesExist = (stoneRow: number, stoneCol: number) => {
+    if (
+      filterReversibleStonesLeft(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesTop(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesTopRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesBottomRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesTopLeft(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesBottomLeft(stoneRow, stoneCol).length > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const selectableCell: number[][] = [];
   boardStatus.forEach((row, i) =>
     row.forEach((col, j) => {
-      if (
-        col === "" &&
-        (filterReversibleStonesLeft(i, j).length > 0 ||
-          filterReversibleStonesRight(i, j).length > 0 ||
-          filterReversibleStonesTop(i, j).length > 0 ||
-          filterReversibleStonesBottom(i, j).length > 0 ||
-          filterReversibleStonesTopRight(i, j).length > 0 ||
-          filterReversibleStonesBottomRight(i, j).length > 0 ||
-          filterReversibleStonesTopLeft(i, j).length > 0 ||
-          filterReversibleStonesBottomLeft(i, j).length > 0)
-      ) {
+      if (col === "" && isReversibleStonesExist(i, j)) {
         selectableCell.push([i, j]);
       }
     })
   );
-  console.log(boardStatus);
-  console.log(selectableCell);
 
   return (
     <>

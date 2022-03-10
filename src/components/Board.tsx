@@ -16,15 +16,27 @@ export const Board: VFC<Props> = ({
   squaresSelectableStatus,
 }) => {
   return (
-    <table
+    <div
       css={css`
-        border-collapse: collapse;
+        display: inline-block;
+        padding: 10px;
+        background-color: #37a037;
       `}
     >
-      <tbody>
+      <div
+        css={css`
+          border-collapse: collapse;
+          border: 1px solid #000000;
+        `}
+      >
         {boardStatus.map((row, i) => {
           return (
-            <tr key={i}>
+            <div
+              css={css`
+                display: flex;
+              `}
+              key={i}
+            >
               {row.map((squareStatus, j) => {
                 return squaresSelectableStatus[i][j] ? (
                   <Square
@@ -42,10 +54,10 @@ export const Board: VFC<Props> = ({
                   />
                 );
               })}
-            </tr>
+            </div>
           );
         })}
-      </tbody>
-    </table>
+      </div>
+    </div>
   );
 };

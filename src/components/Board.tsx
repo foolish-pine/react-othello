@@ -7,13 +7,13 @@ import { BoardStatus } from "src/types/BoardStatus";
 type Props = {
   boardStatus: BoardStatus;
   onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
-  selectableCells: boolean[][];
+  squaresSelectableStatus: boolean[][];
 };
 
 export const Board: VFC<Props> = ({
   boardStatus,
   onClickSquare,
-  selectableCells,
+  squaresSelectableStatus,
 }) => {
   return (
     <table
@@ -26,7 +26,7 @@ export const Board: VFC<Props> = ({
           return (
             <tr key={i}>
               {row.map((squareStatus, j) => {
-                return selectableCells[i][j] ? (
+                return squaresSelectableStatus[i][j] ? (
                   <Square
                     squareStatus={squareStatus}
                     onClickSquare={() => onClickSquare(i, j)}

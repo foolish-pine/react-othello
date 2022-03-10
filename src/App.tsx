@@ -303,6 +303,23 @@ export const App = () => {
     return reversibleStonesBottomLeft;
   };
 
+  // 石の座標を引数に、その場所に石を置いたとき裏返し可能な石が存在するか判定する
+  const isReversibleStonesExist = (stoneRow: number, stoneCol: number) => {
+    if (
+      filterReversibleStonesLeft(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesTop(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesTopRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesBottomRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesTopLeft(stoneRow, stoneCol).length > 0 ||
+      filterReversibleStonesBottomLeft(stoneRow, stoneCol).length > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   // 裏返し可能な石の位置の配列を返す
   const filterReversibleStones = (newStoneRow: number, newStoneCol: number) => {
     const reversibleStonesLeft = filterReversibleStonesLeft(
@@ -392,28 +409,14 @@ export const App = () => {
     changeCurrentPlayer();
   };
 
-  // 石の座標を引数に、その場所に石を置いたとき裏返し可能な石が存在するか判定する
-  const isReversibleStonesExist = (stoneRow: number, stoneCol: number) => {
-    if (
-      filterReversibleStonesLeft(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesRight(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesTop(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesTopRight(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesBottomRight(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesTopLeft(stoneRow, stoneCol).length > 0 ||
-      filterReversibleStonesBottomLeft(stoneRow, stoneCol).length > 0
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  const selectableCell: boolean[][] = [];
+  // マスが選択可能かどうかの状態を示す配列
+  const squaresSelectableStatus: boolean[][] = [];
   boardStatus.forEach((row, i) => {
-    selectableCell.push([]);
+    squaresSelectableStatus.push([]);
     row.forEach((col, j) => {
-      selectableCell[i].push(col === "" && isReversibleStonesExist(i, j));
+      squaresSelectableStatus[i].push(
+        col === "" && isReversibleStonesExist(i, j)
+      );
     });
   });
 
@@ -422,7 +425,7 @@ export const App = () => {
       <Board
         boardStatus={boardStatus}
         onClickSquare={onClickSquare}
-        selectableCells={selectableCell}
+        squaresSelectableStatus={squaresSelectableStatus}
       />
       <p>Current Player is {currentPlayer}</p>
     </>

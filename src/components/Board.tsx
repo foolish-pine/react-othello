@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import _ from "lodash";
 import { VFC } from "react";
 import { Square } from "src/components/Square";
 import { BoardStatus } from "src/types/BoardStatus";
@@ -8,7 +7,7 @@ import { BoardStatus } from "src/types/BoardStatus";
 type Props = {
   boardStatus: BoardStatus;
   onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
-  selectableCells: number[][];
+  selectableCells: boolean[][];
 };
 
 export const Board: VFC<Props> = ({
@@ -27,9 +26,7 @@ export const Board: VFC<Props> = ({
           return (
             <tr key={i}>
               {row.map((squareStatus, j) => {
-                return selectableCells.some((element) =>
-                  _.isEqual(element, [i, j])
-                ) ? (
+                return selectableCells[i][j] ? (
                   <Square
                     squareStatus={squareStatus}
                     onClickSquare={() => onClickSquare(i, j)}

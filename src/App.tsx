@@ -409,14 +409,13 @@ export const App = () => {
     return false;
   };
 
-  const selectableCell: number[][] = [];
-  boardStatus.forEach((row, i) =>
+  const selectableCell: boolean[][] = [];
+  boardStatus.forEach((row, i) => {
+    selectableCell.push([]);
     row.forEach((col, j) => {
-      if (col === "" && isReversibleStonesExist(i, j)) {
-        selectableCell.push([i, j]);
-      }
-    })
-  );
+      selectableCell[i].push(col === "" && isReversibleStonesExist(i, j));
+    });
+  });
 
   return (
     <>

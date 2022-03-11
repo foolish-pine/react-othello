@@ -11,7 +11,7 @@ type Props = {
 export const StoneSquare: VFC<Props> = ({ stoneColor }) => {
   return (
     <Square>
-      <span css={stoneStyle(stoneColor)}></span>;
+      <span css={stoneStyle(stoneColor)}></span>
     </Square>
   );
 };

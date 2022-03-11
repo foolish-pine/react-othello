@@ -12,7 +12,7 @@ type Props = {
 export const CircleSquare: VFC<Props> = ({ currentPlayer, onClickSquare }) => {
   return (
     <Square onClickSquare={onClickSquare}>
-      <span css={circleStyle(currentPlayer)}></span>;
+      <span css={circleStyle(currentPlayer)}></span>
     </Square>
   );
 };

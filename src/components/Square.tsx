@@ -4,6 +4,7 @@ import { VFC } from "react";
 import { SquareStatus } from "src/types/SquareStatus";
 import { StoneColor } from "src/types/StoneColor";
 import { Stone } from "src/components/Stone";
+import { Circle } from "src/components/Circle";
 
 type Props = {
   squareStatus: SquareStatus;
@@ -17,16 +18,17 @@ export const Square: VFC<Props> = ({
   currentPlayer,
   onClickSquare,
 }) => {
+  const doesStoneExist = squareStatus !== "" ? squareStatus : null;
   const stoneColor = squareStatus !== "" ? squareStatus : null;
 
   return (
     <div css={squareStyle} onClick={() => onClickSquare()}>
       {stoneColor && <Stone stoneColor={stoneColor} />}
-      {squareStatus === "" && currentPlayer === "black" && (
-        <span css={circleStyle(currentPlayer)}></span>
+      {!doesStoneExist && currentPlayer === "black" && (
+        <Circle circleColor="black" />
       )}
-      {squareStatus === "" && currentPlayer === "white" && (
-        <span css={circleStyle(currentPlayer)}></span>
+      {!doesStoneExist && currentPlayer === "white" && (
+        <Circle circleColor="white" />
       )}
     </div>
   );
@@ -41,21 +43,4 @@ const squareStyle = css`
   user-select: none;
   background-color: #37a037;
   border: 1px solid #000000;
-`;
-
-const circleStyle = (currentPlayer: StoneColor) => css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-  &::before {
-    display: block;
-    width: 90%;
-    height: 90%;
-    content: "";
-    border: 2px solid ${currentPlayer};
-    border-radius: 50%;
-  }
 `;

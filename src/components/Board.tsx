@@ -21,27 +21,11 @@ export const Board: VFC<Props> = ({
   squaresSelectableStatus,
 }) => {
   return (
-    <div
-      css={css`
-        display: inline-block;
-        padding: 10px;
-        background-color: #37a037;
-      `}
-    >
-      <div
-        css={css`
-          border-collapse: collapse;
-          border: 1px solid #000000;
-        `}
-      >
+    <div css={boardWrapperStyle}>
+      <div css={boardStyle}>
         {boardStatus.map((row, i) => {
           return (
-            <div
-              css={css`
-                display: flex;
-              `}
-              key={i}
-            >
+            <div css={boardRowStyle} key={i}>
               {row.map((squareStatus, j) => {
                 const isSquareSelectable = squaresSelectableStatus[i][j];
 
@@ -68,3 +52,17 @@ export const Board: VFC<Props> = ({
     </div>
   );
 };
+
+const boardWrapperStyle = css`
+  display: inline-block;
+  padding: 10px;
+  background-color: #37a037;
+`;
+
+const boardStyle = css`
+  border: 1px solid #000000;
+`;
+
+const boardRowStyle = css`
+  display: flex;
+`;

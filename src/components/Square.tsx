@@ -15,82 +15,61 @@ export const Square: VFC<Props> = ({
   squareStatus = "",
   currentPlayer,
   onClickSquare,
-  selectable,
 }) => {
   return (
-    <div
-      css={css`
-        width: 42px;
-        height: 42px;
-        font-size: 30px;
-        text-align: center;
-        cursor: pointer;
-        user-select: none;
-        background-color: #37a037;
-        border: 1px solid #000000;
-      `}
-      onClick={() => onClickSquare()}
-    >
-      {squareStatus !== "" && (
-        <span
-          css={css`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-
-            &::before {
-              display: block;
-              width: 90%;
-              height: 90%;
-              content: "";
-              background-color: ${squareStatus};
-              border-radius: 50%;
-            }
-          `}
-        ></span>
-      )}
+    <div css={squareStyle} onClick={() => onClickSquare()}>
+      {squareStatus !== "" && <span css={stoneStyle(squareStatus)}></span>}
       {squareStatus === "" && currentPlayer === "black" && (
-        <span
-          css={css`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-
-            &::before {
-              display: block;
-              width: 90%;
-              height: 90%;
-              content: "";
-              border: 2px solid #000000;
-              border-radius: 50%;
-            }
-          `}
-        ></span>
+        <span css={circleStyle(currentPlayer)}></span>
       )}
       {squareStatus === "" && currentPlayer === "white" && (
-        <span
-          css={css`
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-
-            &::before {
-              display: block;
-              width: 90%;
-              height: 90%;
-              content: "";
-              border: 2px solid #ffffff;
-              border-radius: 50%;
-            }
-          `}
-        ></span>
+        <span css={circleStyle(currentPlayer)}></span>
       )}
     </div>
   );
 };
+
+const squareStyle = css`
+  width: 42px;
+  height: 42px;
+  font-size: 30px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  background-color: #37a037;
+  border: 1px solid #000000;
+`;
+
+const stoneStyle = (squareStatus: Player) => css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  &::before {
+    display: block;
+    width: 90%;
+    height: 90%;
+    content: "";
+    background-color: ${squareStatus};
+    border-radius: 50%;
+  }
+`;
+
+const circleStyle = (currentPlayer: Player) => css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  &::before {
+    display: block;
+    width: 90%;
+    height: 90%;
+    content: "";
+    border: 2px solid ${currentPlayer};
+    border-radius: 50%;
+  }
+`;

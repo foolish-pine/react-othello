@@ -2,14 +2,14 @@
 import { css } from "@emotion/react";
 import { VFC } from "react";
 import { BoardStatus } from "src/types/BoardStatus";
-import { Player } from "src/types/Player";
+import { StoneColor } from "src/types/StoneColor";
 
 type Props = {
   boardStatus: BoardStatus;
 };
 
 export const Score: VFC<Props> = ({ boardStatus }) => {
-  const countStones = (player: Player) => {
+  const countStones = (player: StoneColor) => {
     let count = 0;
     boardStatus.forEach((row) => {
       row.forEach((square) => {

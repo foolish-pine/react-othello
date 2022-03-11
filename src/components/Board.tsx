@@ -3,11 +3,11 @@ import { css } from "@emotion/react";
 import { VFC } from "react";
 import { Square } from "src/components/Square";
 import { BoardStatus } from "src/types/BoardStatus";
-import { Player } from "src/types/Player";
+import { StoneColor } from "src/types/StoneColor";
 
 type Props = {
   boardStatus: BoardStatus;
-  currentPlayer: Player;
+  currentPlayer: StoneColor;
   onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
   squaresSelectableStatus: boolean[][];
 };

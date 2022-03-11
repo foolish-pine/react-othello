@@ -2,11 +2,11 @@
 import { css } from "@emotion/react";
 import { VFC } from "react";
 import { SquareStatus } from "src/types/SquareStatus";
-import { Player } from "src/types/Player";
+import { StoneColor } from "src/types/StoneColor";
 
 type Props = {
   squareStatus: SquareStatus;
-  currentPlayer?: Player;
+  currentPlayer?: StoneColor;
   onClickSquare: () => void;
   selectable: boolean;
 };
@@ -40,7 +40,7 @@ const squareStyle = css`
   border: 1px solid #000000;
 `;
 
-const stoneStyle = (squareStatus: Player) => css`
+const stoneStyle = (squareStatus: StoneColor) => css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@ const stoneStyle = (squareStatus: Player) => css`
   }
 `;
 
-const circleStyle = (currentPlayer: Player) => css`
+const circleStyle = (currentPlayer: StoneColor) => css`
   display: flex;
   align-items: center;
   justify-content: center;

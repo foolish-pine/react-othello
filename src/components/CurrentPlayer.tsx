@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { VFC } from "react";
-import { Player } from "src/types/Player";
+import { StoneColor } from "src/types/StoneColor";
 
 type Props = {
-  currentPlayer: Player;
+  currentPlayer: StoneColor;
 };
 
 export const CurrentPlayer: VFC<Props> = ({ currentPlayer }) => {

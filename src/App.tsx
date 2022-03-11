@@ -4,7 +4,7 @@ import { Board } from "src/components/Board";
 import { CurrentPlayer } from "src/components/CurrentPlayer";
 import { Score } from "src/components/Score";
 import { BoardStatus } from "src/types/BoardStatus";
-import { Player } from "src/types/Player";
+import { StoneColor } from "src/types/StoneColor";
 
 export const App = () => {
   // ボードの初期表示
@@ -22,7 +22,7 @@ export const App = () => {
   const [boardStatus, setBoardStatus] = useState(initialBoardStatus);
 
   // 白を先行として、現在プレイ中のプレイヤーをステート化
-  const [currentPlayer, setCurrentPlayer] = useState<Player>("white");
+  const [currentPlayer, setCurrentPlayer] = useState<StoneColor>("white");
 
   // プレイ中のプレイヤーが白なら黒に、黒なら白にcurrentPlayerを変更する
   const changeCurrentPlayer = () => {

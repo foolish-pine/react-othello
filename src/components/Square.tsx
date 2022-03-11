@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { VFC } from "react";
 import { SquareStatus } from "src/types/SquareStatus";
 import { StoneColor } from "src/types/StoneColor";
+import { Stone } from "src/components/Stone";
 
 type Props = {
   squareStatus: SquareStatus;
@@ -18,7 +19,7 @@ export const Square: VFC<Props> = ({
 }) => {
   return (
     <div css={squareStyle} onClick={() => onClickSquare()}>
-      {squareStatus !== "" && <span css={stoneStyle(squareStatus)}></span>}
+      {squareStatus !== "" && <Stone stoneColor={squareStatus} />}
       {squareStatus === "" && currentPlayer === "black" && (
         <span css={circleStyle(currentPlayer)}></span>
       )}
@@ -38,23 +39,6 @@ const squareStyle = css`
   user-select: none;
   background-color: #37a037;
   border: 1px solid #000000;
-`;
-
-const stoneStyle = (squareStatus: StoneColor) => css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-  &::before {
-    display: block;
-    width: 90%;
-    height: 90%;
-    content: "";
-    background-color: ${squareStatus};
-    border-radius: 50%;
-  }
 `;
 
 const circleStyle = (currentPlayer: StoneColor) => css`

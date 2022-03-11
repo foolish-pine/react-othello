@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import { VFC } from "react";
 import { StoneColor } from "src/types/StoneColor";
+import { Square } from "src/components/Square";
 
 type Props = {
   currentPlayer: StoneColor;
@@ -10,22 +11,11 @@ type Props = {
 
 export const CircleSquare: VFC<Props> = ({ currentPlayer, onClickSquare }) => {
   return (
-    <div css={squareStyle} onClick={onClickSquare}>
+    <Square onClickSquare={onClickSquare}>
       <span css={circleStyle(currentPlayer)}></span>;
-    </div>
+    </Square>
   );
 };
-
-const squareStyle = css`
-  width: 42px;
-  height: 42px;
-  font-size: 30px;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-  background-color: #37a037;
-  border: 1px solid #000000;
-`;
 
 const circleStyle = (currentPlayer: StoneColor) => css`
   display: flex;

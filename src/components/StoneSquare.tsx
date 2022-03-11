@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import { VFC } from "react";
 import { StoneColor } from "src/types/StoneColor";
+import { Square } from "src/components/Square";
 
 type Props = {
   stoneColor: StoneColor;
@@ -9,22 +10,11 @@ type Props = {
 
 export const StoneSquare: VFC<Props> = ({ stoneColor }) => {
   return (
-    <div css={squareStyle}>
+    <Square>
       <span css={stoneStyle(stoneColor)}></span>;
-    </div>
+    </Square>
   );
 };
-
-const squareStyle = css`
-  width: 42px;
-  height: 42px;
-  font-size: 30px;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-  background-color: #37a037;
-  border: 1px solid #000000;
-`;
 
 const stoneStyle = (stoneColor: StoneColor) => css`
   display: flex;

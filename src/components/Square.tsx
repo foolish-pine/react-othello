@@ -1,9 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { VFC } from "react";
+import { ReactNode, VFC } from "react";
 
-export const EmptySquare: VFC = () => {
-  return <div css={squareStyle}></div>;
+type Props = {
+  children?: ReactNode;
+  onClickSquare?: () => void;
+};
+
+export const Square: VFC<Props> = ({ children, onClickSquare }) => {
+  return (
+    <div css={squareStyle} onClick={onClickSquare}>
+      {children}
+    </div>
+  );
 };
 
 const squareStyle = css`

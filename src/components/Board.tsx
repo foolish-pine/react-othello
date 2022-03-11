@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { VFC } from "react";
 import { StoneSquare } from "src/components//StoneSquare";
 import { CircleSquare } from "src/components/CircleSquare";
-import { EmptySquare } from "src/components/EmptySquare";
+import { Square } from "src/components/Square";
 import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
 
@@ -42,7 +42,7 @@ export const Board: VFC<Props> = ({
                     />
                   );
                 } else {
-                  return <EmptySquare key={`${i}-${j}`} />;
+                  return <Square key={`${i}-${j}`}></Square>;
                 }
               })}
             </div>

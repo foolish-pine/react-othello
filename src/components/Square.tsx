@@ -17,9 +17,11 @@ export const Square: VFC<Props> = ({
   currentPlayer,
   onClickSquare,
 }) => {
+  const stoneColor = squareStatus !== "" ? squareStatus : null;
+
   return (
     <div css={squareStyle} onClick={() => onClickSquare()}>
-      {squareStatus !== "" && <Stone stoneColor={squareStatus} />}
+      {stoneColor && <Stone stoneColor={stoneColor} />}
       {squareStatus === "" && currentPlayer === "black" && (
         <span css={circleStyle(currentPlayer)}></span>
       )}

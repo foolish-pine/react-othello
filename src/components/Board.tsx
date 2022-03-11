@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { VFC } from "react";
-import { Square } from "src/components/Square";
+import { StoneSquare } from "src/components//StoneSquare";
+import { CircleSquare } from "src/components/CircleSquare";
+import { EmptySquare } from "src/components/EmptySquare";
 import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
 
@@ -41,22 +43,23 @@ export const Board: VFC<Props> = ({
               key={i}
             >
               {row.map((squareStatus, j) => {
-                return squaresSelectableStatus[i][j] ? (
-                  <Square
-                    squareStatus={squareStatus}
-                    onClickSquare={() => onClickSquare(i, j)}
-                    selectable={true}
-                    currentPlayer={currentPlayer}
-                    key={`${i}-${j}`}
-                  />
-                ) : (
-                  <Square
-                    squareStatus={squareStatus}
-                    onClickSquare={() => onClickSquare(i, j)}
-                    selectable={false}
-                    key={`${i}-${j}`}
-                  />
-                );
+                const isSquareSelectable = squaresSelectableStatus[i][j];
+
+                if (squareStatus !== "") {
+                  return (
+                    <StoneSquare stoneColor={squareStatus} key={`${i}-${j}`} />
+                  );
+                } else if (isSquareSelectable) {
+                  return (
+                    <CircleSquare
+                      currentPlayer={currentPlayer}
+                      onClickSquare={() => onClickSquare(i, j)}
+                      key={`${i}-${j}`}
+                    />
+                  );
+                } else {
+                  return <EmptySquare key={`${i}-${j}`} />;
+                }
               })}
             </div>
           );

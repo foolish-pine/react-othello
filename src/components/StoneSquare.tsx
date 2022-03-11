@@ -7,9 +7,24 @@ type Props = {
   stoneColor: StoneColor;
 };
 
-export const Stone: VFC<Props> = ({ stoneColor }) => {
-  return <span css={stoneStyle(stoneColor)}></span>;
+export const StoneSquare: VFC<Props> = ({ stoneColor }) => {
+  return (
+    <div css={squareStyle}>
+      <span css={stoneStyle(stoneColor)}></span>;
+    </div>
+  );
 };
+
+const squareStyle = css`
+  width: 42px;
+  height: 42px;
+  font-size: 30px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  background-color: #37a037;
+  border: 1px solid #000000;
+`;
 
 const stoneStyle = (stoneColor: StoneColor) => css`
   display: flex;

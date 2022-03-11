@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import { VFC } from "react";
 import { StoneSquare } from "src/components//StoneSquare";
-import { CircleSquare } from "src/components/CircleSquare";
+import { SelectableSquare } from "src/components/SelectableSquare";
 import { Square } from "src/components/Square";
 import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
@@ -12,6 +12,8 @@ type Props = {
   currentPlayer: StoneColor;
   onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
   squaresSelectableStatus: boolean[][];
+  isWhiteAssistModeOn: boolean;
+  isBlackAssistModeOn: boolean;
 };
 
 export const Board: VFC<Props> = ({
@@ -19,6 +21,8 @@ export const Board: VFC<Props> = ({
   currentPlayer,
   onClickSquare,
   squaresSelectableStatus,
+  isWhiteAssistModeOn,
+  isBlackAssistModeOn,
 }) => {
   return (
     <div css={boardWrapperStyle}>
@@ -33,10 +37,20 @@ export const Board: VFC<Props> = ({
                   return (
                     <StoneSquare stoneColor={squareStatus} key={`${i}-${j}`} />
                   );
-                } else if (isSquareSelectable) {
+                } else if (isSquareSelectable && currentPlayer === "white") {
                   return (
-                    <CircleSquare
-                      currentPlayer={currentPlayer}
+                    <SelectableSquare
+                      currentPlayer="white"
+                      isCircleShow={isWhiteAssistModeOn}
+                      onClickSquare={() => onClickSquare(i, j)}
+                      key={`${i}-${j}`}
+                    />
+                  );
+                } else if (isSquareSelectable && currentPlayer === "black") {
+                  return (
+                    <SelectableSquare
+                      currentPlayer="black"
+                      isCircleShow={isBlackAssistModeOn}
                       onClickSquare={() => onClickSquare(i, j)}
                       key={`${i}-${j}`}
                     />

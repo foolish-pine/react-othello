@@ -6,13 +6,18 @@ import { Square } from "src/components/Square";
 
 type Props = {
   currentPlayer: StoneColor;
+  isCircleShow: boolean;
   onClickSquare: () => void;
 };
 
-export const CircleSquare: VFC<Props> = ({ currentPlayer, onClickSquare }) => {
+export const SelectableSquare: VFC<Props> = ({
+  currentPlayer,
+  isCircleShow,
+  onClickSquare,
+}) => {
   return (
     <Square onClickSquare={onClickSquare}>
-      <span css={circleStyle(currentPlayer)}></span>
+      {isCircleShow && <span css={circleStyle(currentPlayer)}></span>}
     </Square>
   );
 };

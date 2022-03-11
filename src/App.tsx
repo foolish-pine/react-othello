@@ -31,6 +31,14 @@ export const App = () => {
       : setCurrentPlayer("white");
   };
 
+  //白プレイヤーのアシストのON・OFF
+  const [isWhiteAssistModeOn, setIsWhiteAssistModeOn] =
+    useState<boolean>(false);
+
+  //黒プレイヤーのアシストのON・OFF
+  const [isBlackAssistModeOn, setIsBlackAssistModeOn] =
+    useState<boolean>(false);
+
   // 石が置かれたマスの左横を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesLeft = (
     newStoneRow: number,
@@ -428,9 +436,17 @@ export const App = () => {
         currentPlayer={currentPlayer}
         onClickSquare={onClickSquare}
         squaresSelectableStatus={squaresSelectableStatus}
+        isWhiteAssistModeOn={isWhiteAssistModeOn}
+        isBlackAssistModeOn={isBlackAssistModeOn}
       />
       <CurrentPlayer currentPlayer={currentPlayer} />
       <Score boardStatus={boardStatus} />
+      <button onClick={() => setIsWhiteAssistModeOn(!isWhiteAssistModeOn)}>
+        {isWhiteAssistModeOn ? "白アシストOFF" : "白アシストON"}
+      </button>
+      <button onClick={() => setIsBlackAssistModeOn(!isBlackAssistModeOn)}>
+        {isBlackAssistModeOn ? "黒アシストOFF" : "黒アシストON"}
+      </button>
     </>
   );
 };

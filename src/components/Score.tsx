@@ -14,24 +14,14 @@ export const Score: VFC<Props> = ({ boardStatus }) => {
 
   return (
     <>
-      <p
-        css={css`
-          margin-top: 8px;
-          font-size: 16px;
-          font-weight: bold;
-        `}
-      >
-        Black: {blackStonesCount}
-      </p>
-      <p
-        css={css`
-          margin-top: 8px;
-          font-size: 16px;
-          font-weight: bold;
-        `}
-      >
-        White: {whiteStonesCount}
-      </p>
+      <p css={scoreTextStyle}>Black: {blackStonesCount}</p>
+      <p css={scoreTextStyle}>White: {whiteStonesCount}</p>
     </>
   );
 };
+
+const scoreTextStyle = css`
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+`;

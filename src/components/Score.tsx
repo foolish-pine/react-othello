@@ -1,26 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { VFC } from "react";
+import { countStones } from "src/functions/countStones";
 import { BoardStatus } from "src/types/BoardStatus";
-import { StoneColor } from "src/types/StoneColor";
 
 type Props = {
   boardStatus: BoardStatus;
 };
 
 export const Score: VFC<Props> = ({ boardStatus }) => {
-  const countStones = (player: StoneColor) => {
-    let count = 0;
-    boardStatus.forEach((row) => {
-      row.forEach((square) => {
-        if (square === player) count++;
-      });
-    });
-    return count;
-  };
-
-  const blackStonesCount = countStones("black");
-  const whiteStonesCount = countStones("white");
+  const blackStonesCount = countStones(boardStatus, "black");
+  const whiteStonesCount = countStones(boardStatus, "white");
 
   return (
     <>

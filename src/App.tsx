@@ -5,6 +5,7 @@ import { CurrentPlayer } from "src/components/CurrentPlayer";
 import { Score } from "src/components/Score";
 import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
+import { SquareNumber } from "./types/SquareNumber";
 
 export const App = () => {
   // ボードの初期表示
@@ -41,8 +42,8 @@ export const App = () => {
 
   // 石が置かれたマスの左横を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesLeft = (
-    newStoneRow: number,
-    newStoneCol: number
+    newStoneRow: SquareNumber,
+    newStoneCol: SquareNumber
   ) => {
     const leftStones = [];
     for (let i = 0; i < newStoneCol; i++) {
@@ -313,7 +314,10 @@ export const App = () => {
   };
 
   // 石の座標を引数に、その場所に石を置いたとき裏返し可能な石が存在するか判定する
-  const isReversibleStonesExist = (stoneRow: number, stoneCol: number) => {
+  const isReversibleStonesExist = (
+    stoneRow: SquareNumber,
+    stoneCol: SquareNumber
+  ) => {
     if (
       filterReversibleStonesLeft(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesRight(stoneRow, stoneCol).length > 0 ||
@@ -330,7 +334,10 @@ export const App = () => {
   };
 
   // 裏返し可能な石の位置の配列を返す
-  const filterReversibleStones = (newStoneRow: number, newStoneCol: number) => {
+  const filterReversibleStones = (
+    newStoneRow: SquareNumber,
+    newStoneCol: SquareNumber
+  ) => {
     const reversibleStonesLeft = filterReversibleStonesLeft(
       newStoneRow,
       newStoneCol
@@ -397,7 +404,10 @@ export const App = () => {
   };
 
   // マス目をクリックしたときの処理
-  const onClickSquare = (newStoneRow: number, newStoneCol: number) => {
+  const onClickSquare = (
+    newStoneRow: SquareNumber,
+    newStoneCol: SquareNumber
+  ) => {
     // クリックしたマスに既に石が置かれている場合は処理を中断する
     if (boardStatus[newStoneRow][newStoneCol]) return;
 
@@ -424,7 +434,8 @@ export const App = () => {
     squaresSelectableStatus.push([]);
     row.forEach((col, j) => {
       squaresSelectableStatus[i].push(
-        col === "" && isReversibleStonesExist(i, j)
+        col === "" &&
+          isReversibleStonesExist(i as SquareNumber, j as SquareNumber)
       );
     });
   });

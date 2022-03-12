@@ -5,12 +5,13 @@ import { StoneSquare } from "src/components//StoneSquare";
 import { SelectableSquare } from "src/components/SelectableSquare";
 import { Square } from "src/components/Square";
 import { BoardStatus } from "src/types/BoardStatus";
+import { SquareNumber } from "src/types/SquareNumber";
 import { StoneColor } from "src/types/StoneColor";
 
 type Props = {
   boardStatus: BoardStatus;
   currentPlayer: StoneColor;
-  onClickSquare: (newStoneRow: number, newStoneCol: number) => void;
+  onClickSquare: (newStoneRow: SquareNumber, newStoneCol: SquareNumber) => void;
   squaresSelectableStatus: boolean[][];
   isWhiteAssistModeOn: boolean;
   isBlackAssistModeOn: boolean;
@@ -42,7 +43,9 @@ export const Board: VFC<Props> = ({
                     <SelectableSquare
                       currentPlayer="white"
                       isCircleShow={isWhiteAssistModeOn}
-                      onClickSquare={() => onClickSquare(i, j)}
+                      onClickSquare={() =>
+                        onClickSquare(i as SquareNumber, j as SquareNumber)
+                      }
                       key={`${i}-${j}`}
                     />
                   );
@@ -51,7 +54,9 @@ export const Board: VFC<Props> = ({
                     <SelectableSquare
                       currentPlayer="black"
                       isCircleShow={isBlackAssistModeOn}
-                      onClickSquare={() => onClickSquare(i, j)}
+                      onClickSquare={() =>
+                        onClickSquare(i as SquareNumber, j as SquareNumber)
+                      }
                       key={`${i}-${j}`}
                     />
                   );

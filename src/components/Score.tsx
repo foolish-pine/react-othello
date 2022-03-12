@@ -22,7 +22,14 @@ export const Score: VFC<Props> = ({ boardStatus }) => {
         `}
       >
         Black: {blackStonesCount}
-        <br />
+      </p>
+      <p
+        css={css`
+          margin-top: 8px;
+          font-size: 16px;
+          font-weight: bold;
+        `}
+      >
         White: {whiteStonesCount}
       </p>
     </>

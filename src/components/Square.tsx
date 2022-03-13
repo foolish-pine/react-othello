@@ -9,15 +9,16 @@ type Props = {
 
 export const Square: VFC<Props> = ({ children, onClickSquare }) => {
   return (
-    <div css={squareStyle} onClick={onClickSquare}>
+    <button css={squareStyle} onClick={onClickSquare}>
       {children}
-    </div>
+    </button>
   );
 };
 
 const squareStyle = css`
   width: 42px;
   height: 42px;
+  padding: 0;
   font-size: 30px;
   text-align: center;
   cursor: pointer;

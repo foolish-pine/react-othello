@@ -7,18 +7,19 @@ import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
 import { SquareNumber } from "./types/SquareNumber";
 
+// ボードの初期表示
+const initialBoardStatus: BoardStatus = [
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "white", "black", "", "", ""],
+  ["", "", "", "black", "white", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+];
+
 export const App = () => {
-  // ボードの初期表示
-  const initialBoardStatus: BoardStatus = [
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "white", "black", "", "", ""],
-    ["", "", "", "black", "white", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-  ];
   // ボードの状態をステート化
   const [boardStatus, setBoardStatus] = useState(initialBoardStatus);
 

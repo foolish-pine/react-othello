@@ -20,6 +20,18 @@ const initialBoardStatus: BoardStatus = [
   ["", "", "", "", "", "", "", ""],
 ];
 
+// ボードの初期表示
+const initialBoardStatus: BoardStatus = [
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "white", "black", "", "", ""],
+  ["", "", "", "black", "white", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+];
+
 export const App = () => {
   // ボードの状態をステート化
   const [boardStatus, setBoardStatus] = useState(initialBoardStatus);

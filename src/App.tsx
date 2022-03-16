@@ -6,19 +6,21 @@ import { Score } from "src/components/Score";
 import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
 import { SquareNumber } from "./types/SquareNumber";
+import { filterReversibleLeftStones } from "src/functions/filterReversibleLeftStones";
+
+// ボードの初期表示
+const initialBoardStatus: BoardStatus = [
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "white", "black", "", "", ""],
+  ["", "", "", "black", "white", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+];
 
 export const App = () => {
-  // ボードの初期表示
-  const initialBoardStatus: BoardStatus = [
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "white", "black", "", "", ""],
-    ["", "", "", "black", "white", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-  ];
   // ボードの状態をステート化
   const [boardStatus, setBoardStatus] = useState(initialBoardStatus);
 
@@ -39,33 +41,6 @@ export const App = () => {
   //黒プレイヤーのアシストのON・OFF
   const [isBlackAssistModeOn, setIsBlackAssistModeOn] =
     useState<boolean>(false);
-
-  // 石が置かれたマスの左横を調査し、挟んだ相手の石の位置を配列に格納して返す
-  const filterReversibleStonesLeft = (
-    newStoneRow: SquareNumber,
-    newStoneCol: SquareNumber
-  ) => {
-    const leftStones = [];
-    for (let i = 0; i < newStoneCol; i++) {
-      leftStones.push(boardStatus[newStoneRow][i]);
-    }
-
-    let reversibleStonesLeft = [];
-    for (let i = leftStones.length - 1; i >= 0; i--) {
-      if (leftStones[i] === "") {
-        reversibleStonesLeft = [];
-        break;
-      }
-      if (leftStones[i] === currentPlayer) break;
-
-      reversibleStonesLeft.push([newStoneRow, i]);
-
-      if (i === 0) {
-        reversibleStonesLeft = [];
-      }
-    }
-    return reversibleStonesLeft;
-  };
 
   // 石が置かれたマスの右横を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesRight = (
@@ -319,7 +294,8 @@ export const App = () => {
     stoneCol: SquareNumber
   ) => {
     if (
-      filterReversibleStonesLeft(stoneRow, stoneCol).length > 0 ||
+      filterReversibleLeftStones(boardStatus, currentPlayer, stoneRow, stoneCol)
+        .length > 0 ||
       filterReversibleStonesRight(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesTop(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
@@ -338,7 +314,9 @@ export const App = () => {
     newStoneRow: SquareNumber,
     newStoneCol: SquareNumber
   ) => {
-    const reversibleStonesLeft = filterReversibleStonesLeft(
+    const reversibleLeftStones = filterReversibleLeftStones(
+      boardStatus,
+      currentPlayer,
       newStoneRow,
       newStoneCol
     );
@@ -379,7 +357,7 @@ export const App = () => {
     );
 
     const reversibleStones: number[][] = [
-      ..._.cloneDeep(reversibleStonesLeft),
+      ..._.cloneDeep(reversibleLeftStones),
       ..._.cloneDeep(reversibleStonesRight),
       ..._.cloneDeep(reversibleStonesTop),
       ..._.cloneDeep(reversibleStonesBottom),
@@ -414,13 +392,13 @@ export const App = () => {
     // クリックしたマスに石を置いても他の石を裏返せない場合、処理を中断する
     if (!isReversibleStonesExist(newStoneRow, newStoneCol)) return;
 
+    // 裏返し可能な石をフィルタリングしてその位置の配列を取得する
+    const reversibleStones = filterReversibleStones(newStoneRow, newStoneCol);
+
     // クリックしたマスに新しい石を表示する
     const newBoardStatus = [...boardStatus];
     newBoardStatus[newStoneRow][newStoneCol] = currentPlayer;
     setBoardStatus(newBoardStatus);
-
-    // 裏返し可能な石をフィルタリングしてその位置の配列を取得する
-    const reversibleStones = filterReversibleStones(newStoneRow, newStoneCol);
 
     // 置いた石と既存の石で挟んだ相手の石を裏返す
     reverseStones(reversibleStones);

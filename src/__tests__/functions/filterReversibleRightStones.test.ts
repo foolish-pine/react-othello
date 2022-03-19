@@ -65,7 +65,7 @@ describe("filterReversibleRightStones関数", () => {
       ["", "", "", "", "", "", "", ""],
     ];
 
-    expect(filterReversibleRightStones(boardStatus, "white", 4, 2)).toEqual([]);
-    expect(filterReversibleRightStones(boardStatus, "black", 3, 2)).toEqual([]);
+    expect(filterReversibleRightStones(boardStatus, "white", 3, 2)).toEqual([]);
+    expect(filterReversibleRightStones(boardStatus, "black", 4, 2)).toEqual([]);
   });
 });

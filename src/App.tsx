@@ -8,6 +8,7 @@ import { StoneColor } from "src/types/StoneColor";
 import { SquareNumber } from "./types/SquareNumber";
 import { filterReversibleLeftStones } from "src/functions/filterReversibleLeftStones";
 import { filterReversibleRightStones } from "src/functions/filterReversibleRightStones";
+import { filterReversibleTopStones } from "src/functions/filterReversibleTopStones";
 
 // ボードの初期表示
 const initialBoardStatus: BoardStatus = [
@@ -42,34 +43,6 @@ export const App = () => {
   //黒プレイヤーのアシストのON・OFF
   const [isBlackAssistModeOn, setIsBlackAssistModeOn] =
     useState<boolean>(false);
-
-  // 石が置かれたマスの上を調査し、挟んだ相手の石の位置を配列に格納して返す
-  const filterReversibleStonesTop = (
-    newStoneRow: number,
-    newStoneCol: number
-  ) => {
-    const topStones = [];
-    for (let i = 0; i < newStoneRow; i++) {
-      topStones.push(boardStatus[i][newStoneCol]);
-    }
-
-    let reversibleStonesTop = [];
-    for (let i = topStones.length - 1; i >= 0; i--) {
-      if (topStones[i] === "") {
-        reversibleStonesTop = [];
-        break;
-      }
-      if (topStones[i] === currentPlayer) break;
-
-      reversibleStonesTop.push([i, newStoneCol]);
-
-      if (i === 0) {
-        reversibleStonesTop = [];
-      }
-    }
-
-    return reversibleStonesTop;
-  };
 
   // 石が置かれたマスの下を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesBottom = (
@@ -276,7 +249,8 @@ export const App = () => {
         stoneRow,
         stoneCol
       ).length > 0 ||
-      filterReversibleStonesTop(stoneRow, stoneCol).length > 0 ||
+      filterReversibleTopStones(boardStatus, currentPlayer, stoneRow, stoneCol)
+        .length > 0 ||
       filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesTopRight(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesBottomRight(stoneRow, stoneCol).length > 0 ||
@@ -307,7 +281,9 @@ export const App = () => {
       newStoneCol
     );
 
-    const reversibleStonesTop = filterReversibleStonesTop(
+    const reversibleStonesTop = filterReversibleTopStones(
+      boardStatus,
+      currentPlayer,
       newStoneRow,
       newStoneCol
     );

@@ -7,6 +7,7 @@ import { BoardStatus } from "src/types/BoardStatus";
 import { StoneColor } from "src/types/StoneColor";
 import { SquareNumber } from "./types/SquareNumber";
 import { filterReversibleLeftStones } from "src/functions/filterReversibleLeftStones";
+import { filterReversibleRightStones } from "src/functions/filterReversibleRightStones";
 
 // ボードの初期表示
 const initialBoardStatus: BoardStatus = [
@@ -41,33 +42,6 @@ export const App = () => {
   //黒プレイヤーのアシストのON・OFF
   const [isBlackAssistModeOn, setIsBlackAssistModeOn] =
     useState<boolean>(false);
-
-  // 石が置かれたマスの右横を調査し、挟んだ相手の石の位置を配列に格納して返す
-  const filterReversibleStonesRight = (
-    newStoneRow: number,
-    newStoneCol: number
-  ) => {
-    const rightStones = [];
-    for (let i = newStoneCol + 1; i < 8; i++) {
-      rightStones.push(boardStatus[newStoneRow][i]);
-    }
-
-    let reversibleStonesRight = [];
-    for (let i = 0; i < rightStones.length; i++) {
-      if (rightStones[i] === "") {
-        reversibleStonesRight = [];
-        break;
-      }
-      if (rightStones[i] === currentPlayer) break;
-
-      reversibleStonesRight.push([newStoneRow, newStoneCol + i + 1]);
-
-      if (i === rightStones.length - 1) {
-        reversibleStonesRight = [];
-      }
-    }
-    return reversibleStonesRight;
-  };
 
   // 石が置かれたマスの上を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesTop = (
@@ -296,7 +270,12 @@ export const App = () => {
     if (
       filterReversibleLeftStones(boardStatus, currentPlayer, stoneRow, stoneCol)
         .length > 0 ||
-      filterReversibleStonesRight(stoneRow, stoneCol).length > 0 ||
+      filterReversibleRightStones(
+        boardStatus,
+        currentPlayer,
+        stoneRow,
+        stoneCol
+      ).length > 0 ||
       filterReversibleStonesTop(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesTopRight(stoneRow, stoneCol).length > 0 ||
@@ -321,7 +300,9 @@ export const App = () => {
       newStoneCol
     );
 
-    const reversibleStonesRight = filterReversibleStonesRight(
+    const reversibleStonesRight = filterReversibleRightStones(
+      boardStatus,
+      currentPlayer,
       newStoneRow,
       newStoneCol
     );

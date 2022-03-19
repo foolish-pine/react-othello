@@ -66,7 +66,7 @@ describe("filterReversibleTopStones関数", () => {
       ["", "", "", "", "", "", "", ""],
     ];
 
-    expect(filterReversibleTopStones(boardStatus, "white", 5, 4)).toEqual([]);
-    expect(filterReversibleTopStones(boardStatus, "black", 5, 3)).toEqual([]);
+    expect(filterReversibleTopStones(boardStatus, "white", 5, 3)).toEqual([]);
+    expect(filterReversibleTopStones(boardStatus, "black", 5, 4)).toEqual([]);
   });
 });

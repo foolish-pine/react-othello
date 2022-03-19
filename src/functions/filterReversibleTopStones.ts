@@ -27,5 +27,5 @@ export const filterReversibleTopStones = (
     }
   }
 
-  return reversibleTopStones;
+  return [];
 };

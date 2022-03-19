@@ -9,6 +9,7 @@ import { SquareNumber } from "./types/SquareNumber";
 import { filterReversibleLeftStones } from "src/functions/filterReversibleLeftStones";
 import { filterReversibleRightStones } from "src/functions/filterReversibleRightStones";
 import { filterReversibleTopStones } from "src/functions/filterReversibleTopStones";
+import { filterReversibleBottomStones } from "src/functions/filterReversibleBottomStones";
 
 // ボードの初期表示
 const initialBoardStatus: BoardStatus = [
@@ -43,34 +44,6 @@ export const App = () => {
   //黒プレイヤーのアシストのON・OFF
   const [isBlackAssistModeOn, setIsBlackAssistModeOn] =
     useState<boolean>(false);
-
-  // 石が置かれたマスの下を調査し、挟んだ相手の石の位置を配列に格納して返す
-  const filterReversibleStonesBottom = (
-    newStoneRow: number,
-    newStoneCol: number
-  ) => {
-    const bottomStones = [];
-    for (let i = newStoneRow + 1; i < 8; i++) {
-      bottomStones.push(boardStatus[i][newStoneCol]);
-    }
-
-    let reversibleStonesBottom = [];
-    for (let i = 0; i < bottomStones.length; i++) {
-      if (bottomStones[i] === "") {
-        reversibleStonesBottom = [];
-        break;
-      }
-      if (bottomStones[i] === currentPlayer) break;
-
-      reversibleStonesBottom.push([newStoneRow + i + 1, newStoneCol]);
-
-      if (i === bottomStones.length - 1) {
-        reversibleStonesBottom = [];
-      }
-    }
-
-    return reversibleStonesBottom;
-  };
 
   // 石が置かれたマスの右上を調査し、挟んだ相手の石の位置を配列に格納して返す
   const filterReversibleStonesTopRight = (
@@ -251,7 +224,12 @@ export const App = () => {
       ).length > 0 ||
       filterReversibleTopStones(boardStatus, currentPlayer, stoneRow, stoneCol)
         .length > 0 ||
-      filterReversibleStonesBottom(stoneRow, stoneCol).length > 0 ||
+      filterReversibleBottomStones(
+        boardStatus,
+        currentPlayer,
+        stoneRow,
+        stoneCol
+      ).length > 0 ||
       filterReversibleStonesTopRight(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesBottomRight(stoneRow, stoneCol).length > 0 ||
       filterReversibleStonesTopLeft(stoneRow, stoneCol).length > 0 ||
@@ -288,7 +266,9 @@ export const App = () => {
       newStoneCol
     );
 
-    const reversibleStonesBottom = filterReversibleStonesBottom(
+    const reversibleStonesBottom = filterReversibleBottomStones(
+      boardStatus,
+      currentPlayer,
       newStoneRow,
       newStoneCol
     );
